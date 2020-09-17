@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Free Web tutorials">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="John Doe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <section id="welcome">
+            <h2>Let's start to play a game!</h2>
+            <p>Select your option</p>
+        </section>
+        
+        <div id="container">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+
+        <div id="resultContainer">
+            <div class="result" id="currentResult"></div>
+            <p id="playerScore"></p>
+        </div>
+
+        <div class="reset">
+            <p id="reset">Reset</p>
+        </div>
+
+        <script>
+            //computer selection
+            function computerPlay() {
+                let arr = ["Rock", "Paper", "Scissors"];
+                let random = Math.floor(Math.random() * 3);
+                return arr[random];
+            }
+
+
+            //User selection
+            let rock = document.getElementById("rock");
+            rock.addEventListener("click", function(i) {
+                singleRound(i.target.textContent);
+            })
+
+            let paper = document.getElementById("paper");
+            paper.addEventListener("click", (i)=>{
+                singleRound(i.target.textContent);
+            })
+
+            let scissors = document.getElementById("scissors");
+            scissors.addEventListener("click", (i)=>{
+                singleRound(i.target.textContent);
+            })
+            
+
+            //Single round game
+            let playerCounter = 0;
+            let computerCounter = 0;
+
+            let currentResult = document.getElementById("currentResult");
+            let playerScore = document.getElementById("playerScore");
+            let computerScore = document.getElementById("computerScore");
+
+            function singleRound(playerSelection, computerSelection) {
+                computerSelection = computerPlay();
+                if (computerSelection === playerSelection) {
+                    currentResult.innerHTML = "Tie, repeat a game!";
+                } else if (computerSelection === "Rock" && playerSelection === "Paper") {
+                    playerCounter++;
+                    currentResult.innerHTML = "You win!";
+                    playerScore.innerHTML = `Player's score: ${playerCounter}    Computer's score: ${computerCounter}`;
+                } else if (computerSelection === "Rock" && playerSelection === "Scissors") {
+                    computerCounter++;
+                    currentResult.innerHTML = "You lost!";
+                    playerScore.innerHTML = `Player's score: ${playerCounter}    Computer's score: ${computerCounter}`;
+                } else if (computerSelection === "Paper" && playerSelection === "Rock") {
+                    computerCounter++;
+                    currentResult.innerHTML = "You lost!";
+                    playerScore.innerHTML = `Player's score: ${playerCounter}    Computer's score: ${computerCounter}`;
+                } else if (computerSelection === "Paper" && playerSelection === "Scissors") {
+                    playerCounter++;
+                    currentResult.innerHTML = "You win!";
+                    playerScore.innerHTML = `Player's score: ${playerCounter}    Computer's score: ${computerCounter}`;
+                } else if (computerSelection === "Scissors" && playerSelection === "Rock") {
+                    playerCounter++;
+                    currentResult.innerHTML = "You win!";
+                    playerScore.innerHTML = `Player's score: ${playerCounter}    Computer's score: ${computerCounter}`;
+                } else if (computerSelection === "Scissors" && playerSelection === "Paper") {
+                    computerCounter++;
+                    currentResult.innerHTML = "You lost!";
+                    playerScore.innerHTML = `Player's score: ${playerCounter}    Computer's score: ${computerCounter}`;
+                }
+            } 
+
+            document.getElementById("reset").addEventListener("click", function(){
+                playerCounter = 0;
+                computerCounter = 0;
+                playerScore.innerHTML = "";
+                currentResult.innerHTML = "";
+            })
+        </script>
+
+    </body>
+
+</html>
